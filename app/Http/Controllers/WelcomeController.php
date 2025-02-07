@@ -11,6 +11,21 @@ class WelcomeController extends Controller
         return view('welcome');
     }
 
+    function search(Request $request){
+        $request->validate([
+        'hotel' => 'required',
+        'country' => 'required|numeric',
+        'city' => 'required|numeric',
+        ]);
+
+        $hotels = Hotel::where('name', 'LIKE', '%'.$request->hotel.'%')
+        ->where('country_id', $request->country)
+        ->where('city_id', $request->city)
+        ->paginate(20);
+
+        return view('search', ['hotels' => $hotels]);
+    }
+
     function getHotelDetails($id){
         $hotel = Hotel::findOrFail($id);
         return view('hotel-details', ['hotel'=>$hotel]);
