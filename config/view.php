@@ -1,15 +1,15 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | View Storage Paths
     |--------------------------------------------------------------------------
     |
-    | Here you may specify an array of paths that should be searched for
-    | views. These paths will be checked in the order they are listed.
-    | Of course, the usual Laravel view path has already been registered
-    | for you, but you may add additional paths for custom views.
+    | Most templating systems load templates from disk. Here you may specify
+    | an array of paths that should be checked for your views. Of course
+    | the usual Laravel view path has already been registered for you.
     |
     */
 
@@ -19,32 +19,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | View Composer
+    | Compiled View Path
     |--------------------------------------------------------------------------
     |
-    | Laravel provides a simple and expressive way to organize your views.
-    | View composers are used to bind data to a view every time it is loaded.
-    | You may register composers for any of your views here.
+    | This option determines where all the compiled Blade templates will be
+    | stored for your application. Typically, this is within the storage
+    | directory. However, as usual, you are free to change this value.
     |
     */
 
-    'composers' => [
-        // Add view composers here if needed
-    ],
+    'compiled' => env(
+        'VIEW_COMPILED_PATH',
+        realpath(storage_path('framework/views'))
+    ),
 
-    /*
-    |--------------------------------------------------------------------------
-    | View Engine Resolver
-    |--------------------------------------------------------------------------
-    |
-    | The view engine resolver is responsible for resolving the view engines
-    | used to render views. Laravel uses Blade for rendering, but you can
-    | customize the resolver if you want to use different view engines.
-    |
-    */
-    'compiled' => realpath(storage_path('framework/views')) ?: storage_path('framework/views'),
-
-    'engine' => [
-        'resolver' => Illuminate\View\Engines\CompilerEngine::class,
-    ],
 ];
